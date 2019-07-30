@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "imagesloaded": "^4.1.4",
+        "popmotion": "^8.7.0",
         "vue": "^2.6.10"
     }
 }

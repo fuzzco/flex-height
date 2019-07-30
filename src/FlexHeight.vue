@@ -16,6 +16,9 @@
 <script>
 import { tween, styler } from 'popmotion'
 
+let inProgressEnter, inProgressEnterComplete
+let inProgressLeave
+
 export default {
     props: {
         wrapper: {
@@ -34,27 +37,37 @@ export default {
             }
         },
         enter(el, complete) {
+            if (inProgressEnter && inProgressEnter.stop) {
+                inProgressEnter.stop()
+            }
+            if (inProgressEnterComplete && inProgressEnterComplete.stop) {
+                inProgressEnterComplete.stop()
+            }
+
             // get + measure parent, set up styler
             const parent = this.$refs.wrapper
             const { height } = parent.getBoundingClientRect()
 
+            // prep styler
+            const s = styler(parent)
+
             // manually set parent height, hide el
-            parent.style.height = `${this.startingHeight}px`
+            parent.style.height = `${s.get('height')}px`
             el.style.opacity = 0
 
             // Go 150px / sec
             const duration = Math.abs(height - this.startingHeight) / 0.15
 
             // animate height
-            tween({
-                from: this.startingHeight,
+            inProgressEnter = tween({
+                from: s.get('height'),
                 to: height,
                 duration: Math.min(duration, 650)
             }).start({
-                update: v => styler(parent).set('height', v),
+                update: v => s.set('height', v),
                 complete() {
                     // animate opacity
-                    tween({
+                    inProgressEnterComplete = tween({
                         from: 0,
                         to: 1,
                         duration: 650
@@ -69,18 +82,24 @@ export default {
             })
         },
         leave(el, complete) {
+            if (inProgressLeave && inProgressLeave.stop) {
+                inProgressLeave.stop()
+            }
+
             // save height before leaving
             const parent = this.$refs.wrapper
             const { height } = parent.getBoundingClientRect()
             this.startingHeight = height
 
+            const s = styler(el)
+
             // fade out
-            tween({
-                from: 1,
+            inProgressLeave = tween({
+                from: s.get('opacity'),
                 to: 0,
                 duration: this.leaveTime
             }).start({
-                update: styler(el).set('opacity').set,
+                update: v => s.set('opacity', v),
                 complete
             })
         }

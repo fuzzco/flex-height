@@ -1,13 +1,32 @@
 <template>
-    <transition @enter="enter" @leave="leave" mode="out-in" :css="false">
-        <slot />
-    </transition>
+    <component :is="wrapper" class="flex-height">
+        <div class="flex-height-internal" ref="wrapper">
+            <transition
+                @enter="enter"
+                @leave="leave"
+                mode="out-in"
+                :css="false"
+            >
+                <slot />
+            </transition>
+        </div>
+    </component>
 </template>
 
 <script>
 import { tween, styler } from 'popmotion'
 
 export default {
+    props: {
+        wrapper: {
+            type: String,
+            default: 'div'
+        },
+        leaveTime: {
+            type: Number,
+            default: 200
+        }
+    },
     methods: {
         data() {
             return {
@@ -16,7 +35,7 @@ export default {
         },
         enter(el, complete) {
             // get + measure parent, set up styler
-            const parent = el.parentNode
+            const parent = this.$refs.wrapper
             const { height } = parent.getBoundingClientRect()
 
             // manually set parent height, hide el
@@ -51,7 +70,7 @@ export default {
         },
         leave(el, complete) {
             // save height before leaving
-            const parent = this.$el
+            const parent = this.$refs.wrapper
             const { height } = parent.getBoundingClientRect()
             this.startingHeight = height
 
@@ -59,7 +78,7 @@ export default {
             tween({
                 from: 1,
                 to: 0,
-                duration: 200
+                duration: this.leaveTime
             }).start({
                 update: styler(el).set('opacity').set,
                 complete

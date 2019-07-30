@@ -1,14 +1,14 @@
 <template>
-    <main class="class">
-        <div class="transition-wrapper">
-            <flex-height>
-                <div v-html="content[id % content.length]" :key="id" />
-            </flex-height>
-        </div>
+    <main class="demo">
+        <flex-height>
+            <div
+                class="flex-content"
+                v-html="content[id % content.length]"
+                :key="id"
+            />
+        </flex-height>
 
-        {{ id }}
-
-        <button @click="id++">
+        <button class="button" @click="id++">
             Next Text
         </button>
     </main>
@@ -35,6 +35,20 @@ export default {
 </script>
 
 <style lang="scss">
-.class {
+.demo {
+    text-align: center;
+    margin-top: 100px;
+
+    .flex-height {
+        background: tomato;
+        padding: 10px;
+        color: white;
+        font-family: sans-serif;
+        max-width: 300px;
+        margin: auto;
+    }
+    .button {
+        margin-top: 50px;
+    }
 }
 </style>

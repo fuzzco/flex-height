@@ -1,43 +1,41 @@
-Boilerplate for Fuzzco Vue components.
+Flexible height transition for Vue. [Demo](https://fuzzco.github.io/flex-height/)
 
-## Usage
+`npm i @fuzzco/flex-height`
 
-1. `degit fuzzco/component-base your-new-component-directory` (more info about [degit](https://github.com/Rich-Harris/degit))
-1. Open `your-new-component-directory` and run `npm run name` to name your component.
-1. See [Development](#development) and [Deployment](#deployment) below.
+[Register component in Vue](https://vuejs.org/v2/guide/components-registration.html), then:
 
-## Development
+```html
+<template>
+    <main>
+        <flex-height>
+            <!-- Any component with varying height can go here. -->
+            <!-- flex-height will wrap that component and adjust its height accordingly.-->
+            <!-- Make sure you key the contents so the change registers! -->
+            <img
+                :src="imageSizes[imageSizes.length % currentIndex]"
+                :key="currentIndex"
+            />
+        </flex-height>
 
-`npm run dev`
+        <button @click="currentIndex++">Next Image</button>
+    </main>
+</template>
 
-Runs [vue-cli-service serve](https://cli.vuejs.org/guide/cli-service.html#vue-cli-service-serve) at `demo/App.vue`. You can create a demo of the component in a Vue environment here. This is also the demo that will be built with `npm run buildDemo` and saved in the `docs/` directory.
+<script>
+    export default {
+        data() {
+            return {
+                currentIndex: 0,
+                imageSizes: ['300x300', '300x400', '300x500']
+            }
+        }
+    }
+</script>
+```
 
-## Deployment
+## Options
 
-_**Note:** If you haven't run `npm run name`, you'll need either do that or:_
-
-1. Replace `flex-height` and `src/YourComponentFile.vue` in the `build` script with your component's library name and entry point
-1. Set `package.json`'s `main` to `dist/flex-height.common.js` to enable importing in outside Vue apps.
-
-### Publishing
-
-This scaffold is designed for quick NPM publishing to the Fuzzco scope. To do so:
-
-`npm publish --access public` the first time
-`npm publish` afterwards
-
-You should commit and push after publishing, since `npm publish` will run `npm run buildDemo` and build an up-to-date demo for the repo's GitHub Pages.
-
-To activate a repo's GitHub Page:
-
-1. Go to the repo's Settings
-1. Scroll down to "GitHub Pages"
-1. Switch the `source` to `master branch /docs folder`
-
-### Building
-
-If you don't want to publish:
-
-`npm run build`
-
-Runs `npm run buildDemo` and [vue-cli-service build](https://cli.vuejs.org/guide/cli-service.html#vue-cli-service-build) in `library` mode.
+| Prop        | Type   | Default | Notes                                                                                                                                                                                                   |
+| ----------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wrapper`   | String | `div`   | Wrapper element for the entire `flex-height` component.<br/><br/>Structure goes: `<wrapper> -> <div.internal> -> <transition> -> <slot>`, where `div.internal` is the component that is actually sized. |
+| `leaveTime` | Number | 200     | ms to fade out when transitioning.                                                                                                                                                                      |

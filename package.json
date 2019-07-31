@@ -1,15 +1,14 @@
 {
     "name": "@fuzzco/flex-height",
     "version": "1.0.0",
-    "description": "All-in-one image component for Vue.",
+    "description": "Flexible height wrapper for Vue.",
     "main": "dist/flex-height.common.js",
     "scripts": {
         "dev": "vue-cli-service serve demo/main",
         "prepublish": "npm run build",
         "buildDemo": "vue-cli-service build --dest docs demo/main",
         "buildLib": "vue-cli-service build --target lib --name flex-height src/FlexHeight.vue",
-        "build": "npm run buildDemo && npm run buildLib",
-        "name": "sh ./set-name.sh && rm ./set-name.sh"
+        "build": "npm run buildDemo && npm run buildLib"
     },
     "keywords": [],
     "author": "",

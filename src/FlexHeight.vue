@@ -15,10 +15,35 @@
 
 <script>
 import { tween, styler } from 'popmotion'
-import { clone, removeClone } from './clone'
 
 let inProgressEnter, inProgressEnterComplete
 let inProgressLeave
+let cloneEl
+
+function removeClone() {
+    if (cloneEl && cloneEl.parentNode && cloneEl.parentNode.removeChild) {
+        cloneEl.parentNode.removeChild(cloneEl)
+    }
+}
+
+function clone(el) {
+    // remove clone if it already exists
+    removeClone()
+
+    // clone element
+    cloneEl = el.cloneNode(true)
+
+    // hide clone
+    cloneEl.style.position = 'absolute'
+    cloneEl.style.opacity = 0
+    cloneEl.style.height = 'initial'
+    cloneEl.setAttribute('aria-hidden', 'true')
+
+    // append clone
+    el.parentNode.appendChild(cloneEl)
+
+    return cloneEl
+}
 
 export default {
     props: {
@@ -48,16 +73,16 @@ export default {
             }
 
             // get + measure parent, set up styler
-            const parent = this.$refs.wrapper
+            const parent = clone(this.$refs.wrapper)
 
             const { height } = parent.getBoundingClientRect()
-            console.log(height)
+            removeClone()
 
             // prep styler
-            const s = styler(parent)
+            const s = styler(this.$refs.wrapper)
 
             // manually set parent height, hide el
-            parent.style.height = `${this.startingHeight}px`
+            this.$refs.wrapper.style.height = `${this.startingHeight}px`
             el.style.opacity = 0
 
             // Go 150px / sec

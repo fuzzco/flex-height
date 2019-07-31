@@ -49,6 +49,7 @@ export default {
     }
     .button {
         margin-top: 50px;
+        font-size: 18px;
     }
 }
 </style>

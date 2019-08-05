@@ -35,7 +35,8 @@ Flexible height transition for Vue. [Demo](https://fuzzco.github.io/flex-height/
 
 ## Options
 
-| Prop        | Type   | Default | Notes                                                                                                                                                                                                   |
-| ----------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `wrapper`   | String | `div`   | Wrapper element for the entire `flex-height` component.<br/><br/>Structure goes: `<wrapper> -> <div.internal> -> <transition> -> <slot>`, where `div.internal` is the component that is actually sized. |
-| `leaveTime` | Number | 200     | ms to fade out when transitioning.                                                                                                                                                                      |
+| Prop        | Type    | Default | Notes                                                                                                                                                                                                   |
+| ----------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wrapper`   | String  | `div`   | Wrapper element for the entire `flex-height` component.<br/><br/>Structure goes: `<wrapper> -> <div.internal> -> <transition> -> <slot>`, where `div.internal` is the component that is actually sized. |
+| `leaveTime` | Number  | 200     | ms to fade out when transitioning.                                                                                                                                                                      |
+| `appear`    | Boolean | `false` | Whether or not the animation should run on mount.                                                                                                                                                       |

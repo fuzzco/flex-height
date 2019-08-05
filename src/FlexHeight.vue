@@ -6,6 +6,7 @@
                 @leave="leave"
                 mode="out-in"
                 :css="false"
+                :appear="appear"
             >
                 <slot />
             </transition>
@@ -54,6 +55,10 @@ export default {
         leaveTime: {
             type: Number,
             default: 200
+        },
+        appear: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {

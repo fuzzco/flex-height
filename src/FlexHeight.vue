@@ -135,7 +135,7 @@ export default {
 
             // save height before leaving
             const parent = this.$refs.wrapper
-            const height = parseFloat(styler(parent).get('height'))
+            const height = parent.getBoundingClientRect().height
 
             this.startingHeight = height
 

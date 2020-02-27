@@ -1,6 +1,6 @@
 {
     "name": "@fuzzco/flex-height",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Flexible height wrapper for Vue.",
     "main": "dist/flex-height.common.js",
     "scripts": {

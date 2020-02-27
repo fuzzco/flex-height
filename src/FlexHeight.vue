@@ -102,6 +102,7 @@ export default {
                 update: v => s.set('height', v),
                 complete() {
                     inProgressEnter = null
+                    s.set('height', '')
 
                     // animate opacity
                     inProgressEnterComplete = tween({
